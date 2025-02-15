@@ -16,7 +16,7 @@
     bool has_serial = false;
 %}
 
-    // Symbol table structures and functions
+    // Tabela de símbolos
     %code requires {
         typedef enum {
             TYPE_INTEGER,
@@ -46,7 +46,7 @@
     typedef struct {
         char *name;
         VarType type;
-        PinConfig pin_config;  // Used for pins
+        PinConfig pin_config;
         bool is_declared;
         int declared_line;
     } Symbol;
@@ -55,7 +55,7 @@
     Symbol symbol_table[MAX_SYMBOLS];
     int symbol_count = 0;
     
-    // Symbol table functions
+    // Funções da tabela
     int find_symbol(const char *name) {
         for (int i = 0; i < symbol_count; i++) {
             if (strcmp(symbol_table[i].name, name) == 0) {
@@ -118,7 +118,7 @@
         return symbol_table[idx].pin_config;
     }
     
-    // Type checking for expressions
+    // Verificação de tipagem das expressões
     VarType check_binary_op(VarType left, VarType right, char *op) {
         if (left == TYPE_UNKNOWN || right == TYPE_UNKNOWN)
             return TYPE_UNKNOWN;
@@ -131,7 +131,7 @@
             return TYPE_UNKNOWN;
         }
         
-        // For now, treat boolean and integer as compatible in expressions
+        // Tratar booleano e inteiro como compatíveis
         return TYPE_INTEGER;
     }
 %}
@@ -154,7 +154,7 @@
     %token <num> NUMERO
     %token <str> STRING IDENTIFICADOR
     
-    /* Operator precedence and associativity */
+    /* Precedência de operação e associação */
     %left IGUAL DIFERENTE
     %left MENOR MAIOR MENOR_IGUAL MAIOR_IGUAL
     %left MAIS MENOS
@@ -333,7 +333,7 @@
                 }
             }
             
-            // We need to find which PWM channel this pin was attached to
+            
             char buffer[1024];
             sprintf(buffer, "  ledcWrite(pwmChannel%d, %s);\n", pwm_channel_counter - 1, $5.code);
             $$ = strdup(buffer);
@@ -644,24 +644,24 @@
     %%
     
     void yyerror(const char *s) {
-        fprintf(stderr, "Error: %s\n", s);
+        fprintf(stderr, "Erro: %s\n", s);
     }
     
     int main(int argc, char **argv) {
         if (argc != 3) {
-            fprintf(stderr, "Usage: %s input_file output_file\n", argv[0]);
+            fprintf(stderr, "Uso, %s arquivo_entrada arquivo_saida\n", argv[0]);
             return 1;
         }
     
         FILE *input = fopen(argv[1], "r");
         if (!input) {
-            fprintf(stderr, "Can't open input file %s\n", argv[1]);
+            fprintf(stderr, "Erro ao abrir o arquivo de entrada %s\n", argv[1]);
             return 1;
         }
     
         output = fopen(argv[2], "w");
         if (!output) {
-            fprintf(stderr, "Can't open output file %s\n", argv[2]);
+            fprintf(stderr, "Erro ao abrir o arquivo de saída %s\n", argv[2]);
             fclose(input);
             return 1;
         }
