@@ -181,7 +181,7 @@
             char *id = strdup($4);
             char *token = strtok(id, ",");
             while (token) {
-                // Remove leading/trailing spaces
+                //Remove trailing e espaço em branco.
                 while (*token == ' ') token++;
                 char *end = token + strlen(token) - 1;
                 while (end > token && *end == ' ') *end-- = 0;
@@ -196,7 +196,7 @@
             char *id = strdup($4);
             char *token = strtok(id, ",");
             while (token) {
-                // Remove leading/trailing spaces
+                //Remove trailing e espaço em branco.
                 while (*token == ' ') token++;
                 char *end = token + strlen(token) - 1;
                 while (end > token && *end == ' ') *end-- = 0;
@@ -211,7 +211,7 @@
             char *id = strdup($4);
             char *token = strtok(id, ",");
             while (token) {
-                // Remove leading/trailing spaces
+                //Remove trailing e espaço em branco.
                 while (*token == ' ') token++;
                 char *end = token + strlen(token) - 1;
                 while (end > token && *end == ' ') *end-- = 0;
